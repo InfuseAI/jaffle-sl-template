@@ -4,7 +4,7 @@ This repo provides a production example of a dbt project containting [metrics](h
 ## Clone the repo.
 
 ```shell
-git clone git@github.com:dbt-labs/jaffle-sl-template.git
+git clone git@github.com:InfuseAI/jaffle-sl-template.git
 cd jaffle-sl-template
 ```
 
@@ -14,7 +14,7 @@ Install metricflow, et al within a virtual environment:
 ```shell
 python -m venv .env
 source .env/bin/activate
-pip install "dbt-metricflow[<YOUR_DBT_ADAPTER_NAME>]"
+pip install "dbt-metricflow[duckdb]"
 dbt --version
 mf --version
 ```
