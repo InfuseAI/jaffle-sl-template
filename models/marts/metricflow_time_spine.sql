@@ -1,21 +1,17 @@
-
--- metricflow_time_spine.sql
-with 
-
-days as (
-    
-    --for BQ adapters use "DATE('01/01/2000','mm/dd/yyyy')"
-    {{ dbt_date.get_base_dates(n_dateparts=365*10, datepart="day") }}
-
+{{
+    config(
+        materialized = 'table',
+    )
+}}
+WITH RECURSIVE date_spine AS (
+    SELECT DATE '2000-01-01' AS date_day
+    UNION ALL
+    SELECT date_day + INTERVAL '1' DAY
+    FROM date_spine
+    WHERE date_day < DATE '2027-01-01'
 ),
-
-cast_to_date as (
-
-    select 
-        cast(date_day as date) as date_day
-    
-    from days
-
+final AS (
+    SELECT date_day
+    FROM date_spine
 )
-
-select * from cast_to_date
+SELECT * FROM final
